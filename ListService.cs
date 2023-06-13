@@ -4,13 +4,13 @@ public static class ListService
 {
 	static public IList<int> getPrimeList(IList<int> list)
 	{
-        var count = list.Count();
+        var count = list.getCount();
         for (var i = 0; i < count; i++)
 		{
 			var value = list.getValue();
 
             if (!isPrime(value)) { 
-                list.Remove(value);
+                list.remove(value);
             }
             else
             {
@@ -22,12 +22,12 @@ public static class ListService
 
     static public IList<int> getEvenList(IList<int> list)
     {
-        var count = list.Count();
+        var count = list.getCount();
         for (var i = 0; i < count; i++)
         {
             var value = list.getValue();
             if (value % 2 != 0) {
-                list.Remove(value);
+                list.remove(value);
             }
             else {
                 list.next();
@@ -38,13 +38,13 @@ public static class ListService
 
     static public IList<int> removeSpecificNumber(IList<int> list, int number)
     {
-        var count = list.Count();
+        var count = list.getCount();
         for (var i = 0; i < count; i++)
         {
             var value = list.getValue();
             if (value == number)
             {
-                list.Remove(value);
+                list.remove(value);
                 count--;
             }
                 else
@@ -69,10 +69,10 @@ public static class ListService
     {
         var array = quickSort(list.toArray()).Reverse();
 
-        list.Clear();
+        list.clear();
         foreach (var element in array)
         {
-            list.Add(element);
+            list.add(element);
         }
         return list;
     }

@@ -47,7 +47,7 @@ public class TWLinkedList<T> : IList<T>
         this.head = this.head.prev;
     }
 
-    public void Add(T value)
+    public void add(T value)
     {
         Node<T> newNode = new Node<T>(value);
 
@@ -71,7 +71,7 @@ public class TWLinkedList<T> : IList<T>
 
     }
 
-    public void Remove(T value)
+    public void remove(T value)
     {
         Node<T>? head = this.head;
         Node<T>? previuos = null;
@@ -100,7 +100,7 @@ public class TWLinkedList<T> : IList<T>
         previuos.next = head.next;
     }
 
-    public Boolean Contains(T value)
+    public Boolean contains(T value)
     {
         Node<T>? head = this.head;
 
@@ -113,12 +113,12 @@ public class TWLinkedList<T> : IList<T>
         return false;
     }
 
-    public uint Count()
+    public uint getCount()
     {
         return this.count;
     }
 
-    public void Clear()
+    public void clear()
     {
         this.head = null;
         this.tail = null;
@@ -126,7 +126,7 @@ public class TWLinkedList<T> : IList<T>
     }
 
 
-    public void Print()
+    public void print()
     {
         Node<T>? head = this.head;
         for (int index = 0; index < this.count; index++)
