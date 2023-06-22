@@ -28,6 +28,18 @@ public class LinkedList<T> : IList<T>
     this.count = list.count;
   }
 
+  public void Concat(LinkedList<T> list) {
+    if (this.head is null) {
+      this.head = list.head;
+      this.tail = list.tail;
+      this.count = list.count;
+      return;
+    }
+    this.tail.next = list.head;
+    this.tail = list.tail;
+    this.count += list.count;
+  }
+
   public T GetValue()
   {
     return this.head.value;
@@ -90,7 +102,7 @@ public class LinkedList<T> : IList<T>
     previuos.next = current.next;
   }
 
-  public Boolean Contains(T value)
+  public T Contains(T value)
   {
     Node<T>? current = this.head;
 
@@ -99,7 +111,7 @@ public class LinkedList<T> : IList<T>
       current = current.next;
     }
 
-    return current is not null;
+    return current.value;
   }
 
   public uint GetCount()

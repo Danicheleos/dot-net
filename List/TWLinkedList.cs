@@ -87,7 +87,7 @@ public class TWLinkedList<T> : IList<T>
     current.prev = previuos;
   }
 
-  public Boolean Contains(T value)
+  public T Contains(T value)
   {
     Node<T>? current = this.head;
 
@@ -96,7 +96,7 @@ public class TWLinkedList<T> : IList<T>
       current = current.next;
     }
 
-    return current is not null;
+    return current.value;
   }
 
   public uint GetCount()
