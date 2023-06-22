@@ -2,7 +2,7 @@
 
 public class TWLinkedList<T> : IList<T>
 {
-  private Node<T>? head;
+  public Node<T>? head { get; set; }
   private Node<T>? tail;
   private uint count = 0;
 
@@ -14,66 +14,53 @@ public class TWLinkedList<T> : IList<T>
   public TWLinkedList(T value)
   {
     this.head = new Node<T>(value);
+    this.tail = this.head;
+    this.count = 1;
   }
 
-  public T getValue()
+  public T GetValue()
   {
     return this.head.value;
   }
 
-  public T[] toArray()
+  public T[] ToArray()
   {
     T[] array = new T[this.count];
-    Node<T> head = this.head;
+    Node<T> current = this.head;
+    var index = 0;
 
-    for (int index = 0; index < this.count; index++)
+    while (current is not null)
     {
-      array[index] = head.value;
-      head = head.next;
+      array[index] = current.value;
+      current = current.next;
+      index++;
     }
 
     return array;
   }
 
-  public void next()
-  {
-    this.head = this.head.next;
-    this.tail = this.tail.next;
-  }
-
-
-  public void prev()
-  {
-    this.head = this.head.prev;
-  }
-
-  public void add(T value)
+  public void Add(T value)
   {
     Node<T> newNode = new Node<T>(value);
 
     if (count == 0)
     {
-      newNode.next = newNode;
-      newNode.prev = newNode;
-      this.tail = newNode;
-      this.head = newNode;
-      this.count++;
+      this.head = new Node<T>(value);
+      this.tail = this.head;
+      this.count = 1;
       return;
     }
 
-    newNode.prev = this.tail;
-    newNode.next = this.head;
-    this.head.prev = newNode;
     this.tail.next = newNode;
-    this.head = newNode;
-
+    newNode.prev = this.tail;
+    this.tail = newNode;
     this.count++;
 
   }
 
-  public void remove(T value)
+  public void Remove(T value)
   {
-    Node<T>? head = this.head;
+    Node<T>? current = this.head;
     Node<T>? previuos = null;
 
     if (head is null || head.value is null) return;
@@ -81,58 +68,55 @@ public class TWLinkedList<T> : IList<T>
     if (head.value.Equals(value))
     {
       this.head = this.head.next;
-      this.tail.next = this.head;
-      count--;
+      this.head.prev = null;
+      this.count--;
       return;
     }
 
 
-    while (head is not null && !head.value.Equals(value))
+    while (current is not null && !current.value.Equals(value))
     {
-      previuos = head;
-      head = head.next;
+      previuos = current;
+      current = current.next;
     }
 
-    if (head is null || previuos is null) return;
+    if (current is null || previuos is null) return;
 
     this.count--;
-    head.prev = previuos;
-    previuos.next = head.next;
+    previuos.next = current.next;
+    current.prev = previuos;
   }
 
-  public Boolean contains(T value)
+  public Boolean Contains(T value)
   {
-    Node<T>? head = this.head;
+    Node<T>? current = this.head;
 
-    do
+    while (current is not null && !current.value.Equals(value))
     {
-      if (head is not null && head.value.Equals(value)) return true;
-      head = head.next;
-    } while (head is not null);
+      current = current.next;
+    }
 
-    return false;
+    return current is not null;
   }
 
-  public uint getCount()
+  public uint GetCount()
   {
     return this.count;
   }
 
-  public void clear()
+  public void Clear()
   {
     this.head = null;
     this.tail = null;
     this.count = 0;
   }
 
-
-  public void print()
+  public void Print()
   {
-    Node<T>? head = this.head;
-    for (int index = 0; index < this.count; index++)
-    {
-      Console.Write(head.value + ", ");
-      head = head.next;
+    Node<T>? current = this.head;
+    while (current is not null) {
+      Console.Write(current.value + ", ");
+      current = current.next;
     }
     Console.Write("\n");
   }

@@ -1,15 +1,14 @@
 ﻿using System;
 public interface IList<T>
 {
-  public void add(T value);
-  public T getValue();
-  public T[] toArray();
-  public void remove(T value);
-  public void next();
-  public Boolean contains(T value);
-  public uint getCount();
-  public void clear();
-  public void print();
+  public Node<T> head { get; set; }
+  public void Add(T value);
+  public T[] ToArray();
+  public void Remove(T value);
+  public bool Contains(T value);
+  public uint GetCount();
+  public void Clear();
+  public void Print();
 }
 
 

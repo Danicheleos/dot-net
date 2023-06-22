@@ -2,64 +2,63 @@
 
 public static class ListService
 {
-  static public IList<int> getPrimeList(IList<int> list)
+  static public IList<int> GetPrimeList(IList<int> list)
   {
-    var count = list.getCount();
-    for (var i = 0; i < count; i++)
+    var count = list.GetCount();
+    var current = list.head;
+    while (current is not null)
     {
-      var value = list.getValue();
+      var value = current.value;
 
-      if (!isPrime(value))
+      if (!IsPrime(value))
       {
-        list.remove(value);
+        list.Remove(value);
       }
-      else
-      {
-        list.next();
-      }
+      current = current.next;
     }
     return list;
   }
 
-  static public IList<int> getEvenList(IList<int> list)
+  static public IList<int> GetEvenList(IList<int> list)
   {
-    var count = list.getCount();
-    for (var i = 0; i < count; i++)
+    var count = list.GetCount();
+    var current = list.head;
+
+    while (current is not null)
     {
-      var value = list.getValue();
+      var value = current.value;
       if (value % 2 != 0)
       {
-        list.remove(value);
+        list.Remove(value);
       }
-      else
-      {
-        list.next();
-      }
+      current = current.next;
     }
     return list;
   }
 
-  static public IList<int> removeSpecificNumber(IList<int> list, int number)
+  static public IList<int> RemoveSpecificNumber(IList<int> list, int number)
   {
-    var count = list.getCount();
+    var count = list.GetCount();
+    var current = list.head;
+
     for (var i = 0; i < count; i++)
     {
-      var value = list.getValue();
+      var value = current.value;
       if (value == number)
       {
-        list.remove(value);
+        list.Remove(value);
         count--;
       }
       else
       {
-        list.next();
+        current = current.next;
       }
     }
     return list;
   }
 
 
-  static public Boolean isPrime(int number)
+  static public Boolean IsPrime(int number)
   {
     for (var i = 2; i <= number / 2; i++)
     {
@@ -68,19 +67,19 @@ public static class ListService
     return true;
   }
 
-  static public IList<int> sort(IList<int> list)
+  static public IList<int> Sort(IList<int> list)
   {
-    var array = quickSort(list.toArray()).Reverse();
-
-    list.clear();
+    list.Print();
+    var array = QuickSort(list.ToArray());
+    list.Clear();
     foreach (var element in array)
     {
-      list.add(element);
+      list.Add(element);
     }
     return list;
   }
 
-  private static int[] quickSort(int[] array, int low = 0, int high = 0)
+  private static int[] QuickSort(int[] array, int low = 0, int high = 0)
   {
     if (high == 0) high = array.Length - 1;
     if (low >= high || array.Length == 0) return array;
@@ -104,8 +103,8 @@ public static class ListService
         j--;
       }
     }
-    if (low < j) quickSort(array, low, j);
-    if (high > i) quickSort(array, i, high);
+    if (low < j) QuickSort(array, low, j);
+    if (high > i) QuickSort(array, i, high);
     return array;
   }
 }
