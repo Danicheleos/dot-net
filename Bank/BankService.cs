@@ -1,66 +1,21 @@
 
 public static class BankService {
-  public static List<User> getUsers(List<Bank> bankList) {
-    var bankArray = bankList.ToArray();
-    List<User> userList = new List<User>();
-
-    foreach (var bank in bankArray)
-    {
-      userList.AddRange(bank.UserList);
-    }
-
-    userList.Sort();
-
-
+  public static IEnumerable<User> getUsers(List<Bank> bankList) {
+    var userList = from bank in bankList from user in bank.UserList orderby user select user;
     return userList;
   }
 
   public static User getUser(List<Bank> bankList, int id) {
-    var bankArray = bankList.ToArray();
-    List<User> userList = new List<User>();
-
-    foreach (var bank in bankArray)
-    {
-      userList.AddRange(bank.UserList);
-    }
-    return userList.Find(user => user.Id == id);
+    return (from bank in bankList from user in bank.UserList where user.Id == id select user).First();
   }
 
   public static string GetUserWithMinScore(List<Bank> bankList) {
-    var bankArray = bankList.ToArray();
-    List<User> userList = new List<User>();
-
-    foreach (var bank in bankArray)
-    {
-      userList.AddRange(bank.UserList);
-    }
-
-    User maxUser = userList[0];
-
-    userList.ForEach(user => {
-      if (user.Account.Score <= maxUser.Account.Score) {
-        maxUser = user;
-      }
-    });
-
-    return maxUser.FirstName + ' ' + maxUser.Account.Score;
+    var minUser = (from bank in bankList from user in bank.UserList select user).Min();
+    return minUser.FirstName + ' ' + minUser.Account.Score;
   }
 
   public static string GetUserWithMaxScore(List<Bank> bankList) {
-    List<User> userList = new List<User>();
-
-    bankList.ForEach(bank => {
-      userList.AddRange(bank.UserList);
-    });
-
-    User maxUser = userList[0];
-
-    userList.ForEach(user => {
-      if (user.Account.Score >= maxUser.Account.Score) {
-        maxUser = user;
-      }
-    });
-    
+    var maxUser = (from bank in bankList from user in bank.UserList select user).Max();
     return maxUser.FirstName + ' ' + maxUser.Account.Score;
   }
 }
