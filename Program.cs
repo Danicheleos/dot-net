@@ -26,11 +26,11 @@ class Program
     user3.Account.AddScore(500);
     user4.Account.AddScore(750);
 
-    var bankList = new LinkedList<Bank>();
+    var bankList = new List<Bank>();
     bankList.Add(bank1);
     bankList.Add(bank2);
 
-    var userList = new LinkedList<User>();
+    var userList = new List<User>();
     userList.Add(user1);
     userList.Add(user2);
 

@@ -5,14 +5,14 @@ public class Bank {
   public string City;
   public string Address;
 
-  public LinkedList<User> UserList;
+  public List<User> UserList;
 
   public Bank(string name, string city, string address) {
     Id = Total++;
     Name = name;
     City = city;
     Address = address;
-    UserList = new LinkedList<User>();
+    UserList = new List<User>();
   }
 
   public void RegisterUser(User user) {
@@ -25,14 +25,14 @@ public class Bank {
   }
 
   public void BlockUser(User user) {
-    var foundUser = UserList.Contains(user);
+    var foundUser = UserList.Find(el => el.Id == user.Id);
     if (foundUser is not null) {
       foundUser.BlockUser();
     }
   }
 
   public void UnblockUser(User user) {
-    var foundUser = UserList.Contains(user);
+    var foundUser = UserList.Find(el => el.Id == user.Id);
     if (foundUser is not null) {
       foundUser.UnblockUser();
     }

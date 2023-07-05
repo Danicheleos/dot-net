@@ -2,8 +2,8 @@
 
 public class TWLinkedList<T> : IList<T>
 {
-  public Node<T>? head { get; set; }
-  private Node<T>? tail;
+  public Node<T> head { get; set; }
+  private Node<T> tail;
   private uint count = 0;
 
   public TWLinkedList()
